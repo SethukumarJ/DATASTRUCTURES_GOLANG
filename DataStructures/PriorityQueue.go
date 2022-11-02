@@ -73,6 +73,17 @@ func (node *PriorQueue) display() {
 	
 }
 
+func (que *PriorQueue) eliminate() {
+	if que.front == nil {
+
+		fmt.Println("Queue is empty")
+
+	} else {
+		que.front = que.front.Next
+	}
+}
+
+
 
 func main() {
 	q := PriorQueue{}
@@ -82,7 +93,9 @@ func main() {
 	q.append(2)
 	q.append(4)
 	q.append(3)
-	
+	q.display()
+	fmt.Println("After dq")
+	q.eliminate()
 	q.display()
 	
 
