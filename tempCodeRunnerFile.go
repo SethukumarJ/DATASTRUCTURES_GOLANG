@@ -1,5 +1,2 @@
-func (c CircularQueue) deQue() {
 
-// 	c.rear.Next = c.front.Next
-
-// }
+			currentNode.Next.Prev = currentNode.Prev

@@ -84,16 +84,28 @@ func (list *DoublyLinkedList) delete(data int){
     
 	currentNode = list.head
 
-	for currentNode != list.tail {
 
-		if(currentNode.Data == data) {
+	
 
+	for currentNode != nil {
+
+		
+
+	if(currentNode.Data == data) {
+
+		if currentNode ==list.head {
+			list.head = list.head.Next
+			list.head.Prev = nil
+		} else if(currentNode == list.tail) {
+			list.tail = list.tail.Prev
+
+		} else {
 			currentNode.Prev.Next = currentNode.Next
 			currentNode.Next.Prev = currentNode.Prev
 			
 		    break
-			
 		}
+	}
 		currentNode = currentNode.Next
     }
 
@@ -107,6 +119,7 @@ func main() {
 	list.addNode(9)
 	list.addNode(0)
 	list.insertBefore(6,0)
-	list.delete(6)
+	list.delete(4)
+	list.delete(0)
 	list.displayForward()
 }
