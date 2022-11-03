@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 type Node struct {
-	Data int
+	Data rune
 	Next *Node
 }
 
@@ -11,7 +11,7 @@ type Stack struct {
 	top *Node
 }
 
-func (list *Stack) push(data int) {
+func (list *Stack) push(data rune) {
 	newNode := new(Node)
 	newNode.Data = data
 
@@ -34,6 +34,16 @@ func (list *Stack) pop() {
 
 }
 
+func (list *Stack) peak() rune {
+	
+	if list.top == nil {
+		panic("This stack is empty")
+		
+	} 
+		return list.top.Data
+	
+}
+
 
 
 func (list *Stack) display() {
@@ -51,21 +61,40 @@ func (list *Stack) display() {
 func PaliodromeCheck(data string) {
     
 	list := Stack{}
+    var count int
+	for _, pdata := range data {
+		list.push(pdata)
+	}
+
+	for _, pop := range data {
+     
+		var peak rune
+        peak = list.peak()
+		if peak != pop {
+			count++
+			break
+		} else {
+			list.pop()
+		}
+	}
+
+	if count != 0{
+		fmt.Println("Not a paliondrome")
+	} else {
+		fmt.Println("This string is  a paliondrome")
+	}
 
 	
 
 }
 
-// func main() {
 
-// 	list := Stack{}
+func main () {
 
-// 	list.push(1)
-// 	list.push(2)
-// 	list.push(3)
-// 	list.push(4)
-// 	list.push(5)
-// 	list.pop()
-// 	list.display()
+	var data string
+    
+	fmt.Print("Enter the string : ")
+	fmt.Scan(&data)
+    PaliodromeCheck(data)
+}
 
-// }
