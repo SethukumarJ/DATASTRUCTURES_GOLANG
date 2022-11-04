@@ -61,8 +61,9 @@ import (
 
 func main() {
 
-	ext := 1
-	
+	var input []int
 
-	fmt.Printf("%T",ext)
+	input = append(input, 4)
+
+	fmt.Println(len(input))
 }

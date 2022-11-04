@@ -104,17 +104,4 @@ func main() {
 	postfixEvaluator("456*+8+")
 }
 
-// public void postFixevaluator(String exp){
-// 	for(int i = 0;i<exp.length();i++){
-// 		char temp = exp.charAt(i);
-// 		if(Character.isDigit(temp)){
-// 			stack.push(Character.getNumericValue(temp));
-// 		}
-// 		else{
-// 			int n = stack.pop();
 
-// 			stack.push(operation(temp, n, stack.pop()));
-// 		}
-// 	}
-// 	System.out.println(stack.peek());
-// }
