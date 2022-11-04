@@ -46,9 +46,6 @@
 
 	  
 
-// func main() {
-
-// }
 // package main
 
 // import (
@@ -59,6 +56,6 @@
 
 // name := "sehtu"
 
-// fmt.Printf("Type of name is %T and the first character is %s",name[0:1],name[4:5])
+// fmt.Printf("Type of name is %T and the first character is %s",name[4:5],name[4:5])
 
 // }

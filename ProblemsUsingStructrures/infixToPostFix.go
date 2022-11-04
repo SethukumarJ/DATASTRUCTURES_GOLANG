@@ -18,8 +18,10 @@ func (s *stack) push(data string) {
 	s.top++
 }
 
-func (s *stack) pop() {
+func (s *stack) pop() string {
+	
 	s.top--
+	return s.stackarr[s.top+1]
 }
 func (s *stack) isEmpty() bool {
 	if s.stackarr == nil {
@@ -34,27 +36,95 @@ func (s *stack) peak() string {
 	return s.stackarr[s.top]
 }
 
-func isLetterOrDigin(input string) bool {
+func isLetterOrDigit(input string) bool {
 
-	 if input == "+" || input == "-" || input == "*" || input == "/" {
+	if input == "+" || input == "-" || input == "*" || input == "/" {
 
 		return true
 
-	 } else {
-		
+	} else {
+
 		return false
 
-	 }
+	}
+
+}
+
+func precedence(character string) int {
+
+	switch character {
+
+	case "+":
+	case "-":
+		return 1
+
+	case "*":
+	case "/":
+		return 2
+
+	case "^":
+		return 3
+	}
+	return 0
+}
+
+func (s *stack) infixToPostfix(exp string) {
+	expression := exp
+
+	var finalExp string
+	var character string
+	for i := 0; i < len(expression); i++ {
+		character = exp[i : i+1]
+
+		if isLetterOrDigit(character) {
+			finalExp += expression
+		} else {
+
+			precedence := precedence(character) > precedence(s.peak())
+
+			if character == ")" {
+				
+				for s.peak() != "(" {
+					finalExp += s.pop()
+				}
+				finalExp += s.pop()
+				finalExp += ")"
+
+			} else if character == "(" {
+
+				s.push("(")
+
+			} else if s.isEmpty() || character == "(" {
+				
+				s.push(character)
+
+			}else if !s.isEmpty() && precedence == true {
+
+				s.push(character)
+
+			} else {
+				for precedence == false {
+					finalExp += s.pop()
+				}
+				s.push(character)
+			}
+		}
+
+	}
+
+	for !s.isEmpty() {
+		finalExp += s.pop()
+	}
+
+	fmt.Println(finalExp)
 
 }
 
 
+func main() {
+	
+	convert := stack{}
 
-
-func (s *stack) infixToPostfix(input string) {
-   
-       
+	convert.infixToPostfix("(a+b^x)*(c+d)")
 
 }
-
-
