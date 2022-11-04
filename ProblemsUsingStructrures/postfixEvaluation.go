@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"reflect"
 	"strconv"
 	"time"
@@ -52,27 +53,68 @@ func Digit(exp string) bool {
 		return false
 	}
 }
-func operation(operator string, a int, b int) int{
-	switch operator{
-		case "+":
-		   return a+b
-		
-	    case "-":
-			return a-b
+func operation(operator string, a int, b int) int {
+	switch operator {
+	case "+":
+		return a + b
 
-		case "*":
-			return a*b
+	case "-":
+		return a - b
 
-		case "/":
-			return a/b
+	case "*":
+		return a * b
+
+	case "/":
+		return a / b
 
 	}
-	return 0;
+	return 0
 }
-
 
 func postfixEvaluator(exp string) {
+	s := stack{}
 
+	for i := 0; i < len(exp); i++ {
+		char := exp[i : i+1]
+		if Digit(exp) {
+			s.push(char)
+		} else {
 
+			n := s.pop()
+			number, err := strconv.Atoi(n)
+			if err != nil {
+				time.Sleep(time.Microsecond)
+			}
+			n2 := s.pop()
+			number2, err2 := strconv.Atoi(n2)
+			if err2 != nil {
+				time.Sleep(time.Microsecond)
+			}
+			s.push(strconv.Itoa(operation(char, number2, number)))
+		}
+	}
+
+	fmt.Println(s.peak())
 
 }
+
+
+
+func main() {
+	postfixEvaluator("456*+8+")
+}
+
+// public void postFixevaluator(String exp){
+// 	for(int i = 0;i<exp.length();i++){
+// 		char temp = exp.charAt(i);
+// 		if(Character.isDigit(temp)){
+// 			stack.push(Character.getNumericValue(temp));
+// 		}
+// 		else{
+// 			int n = stack.pop();
+
+// 			stack.push(operation(temp, n, stack.pop()));
+// 		}
+// 	}
+// 	System.out.println(stack.peek());
+// }
