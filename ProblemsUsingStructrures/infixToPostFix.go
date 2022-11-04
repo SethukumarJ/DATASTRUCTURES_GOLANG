@@ -40,11 +40,11 @@ func isLetterOrDigit(input string) bool {
 
 	if input == "+" || input == "-" || input == "*" || input == "/" {
 
-		return true
+		return false
 
 	} else {
 
-		return false
+		return true
 
 	}
 

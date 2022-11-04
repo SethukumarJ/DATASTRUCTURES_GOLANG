@@ -35,7 +35,7 @@
 
 // 	if list.head == nil {
 // 		fmt.Println("List is empty")
-// 	} 
+// 	}
 
 // 	currentNode = list.head
 // 	  for currentNode != nil {
@@ -44,13 +44,12 @@
 // }
 // 	  }
 
-	  
+package main
 
-// package main
+import (
+	"fmt"
 
-// import (
-// 	"fmt"
-// )
+)
 
 // func main() {
 
@@ -59,3 +58,11 @@
 // fmt.Printf("Type of name is %T and the first character is %s",name[4:5],name[4:5])
 
 // }
+
+func main() {
+
+	ext := 1
+	
+
+	fmt.Printf("%T",ext)
+}
