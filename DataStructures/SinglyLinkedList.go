@@ -58,12 +58,7 @@ func (list *SinglyLinkedList) display() {
 func main() {
 
 	list := SinglyLinkedList{}
-	list.addNode(20)
-	list.addNode(21)
-	list.addNode(22)
-	list.addNode(23)
-	list.addNode(24)
-	list.delete(24)
-	list.display()
+	
+	for
 
 }
