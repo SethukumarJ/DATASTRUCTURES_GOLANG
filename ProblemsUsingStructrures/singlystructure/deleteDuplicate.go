@@ -60,8 +60,12 @@ func (list *SinglyLinkedList) display() {
 
 }
 
+
+// ===================================================================functionsssssssf========================================================
+
 func moreOperation() {
 	fmt.Print("\nEnter 'D' to choose a data to delete the duplicate,\nEnter E to delete all the duplicate of even,\nEnter 'O' to delete the duplicate of odd, \nEnter  'A' to delete all the duplicates" )
+	duplicateDeletetion()
 }
 func operations() {
 	fmt.Print("\nEnter 1 to addData, \nEnter 2 to delete, \nEnter 3 to display, \nEnter 4 to show more opetations, \nEnter 5 to exit")
@@ -94,80 +98,170 @@ func subOperations() bool {
 			if currentNode.Data == successorNode.Data {
 				s.delete(successorNode.Data)
 				successorNode = successorNode.Next
+			} else {
+				successorNode = successorNode.Next
 			}
+		
 		}
 		currentNode = currentNode.Next
 	}
 
  }   
 
- func (s *SinglyLinkedList) deleteSpecificData() {
+ func (s *SinglyLinkedList) deleteDupOf(data int) {
 
-	
+	subOperations()
 
+	currentNode := s.head
+
+    if subOperations() {
+
+        for  currentNode != nil {
+			if data == currentNode.Data {
+                 s.delete(currentNode.Data)
+
+				 currentNode = currentNode.Next
+			}
+			currentNode = currentNode.Next
+		}   
+
+	} else {
+
+		for currentNode != nil {
+			if data == currentNode.Data {
+				s.delete (currentNode.Data)
+				break
+			} else {
+				currentNode = currentNode.Next
+			}
+		}
+	}
+
+ }
+
+
+ func (s *SinglyLinkedList) deleteEven() {
+	subOperations()
+
+	currentNode := s.head 
+
+	   if subOperations() {
+			 for currentNode != nil {
+
+				if currentNode.Data%2 == 0 {
+					s.delete(currentNode.Data)
+					currentNode = currentNode.Next
+				}
+				currentNode = currentNode.Next
+			 }
+	   } else {
+			for currentNode != nil {
+				if currentNode.Data%2 == 0 {
+					s.delete(currentNode.Data)
+					break
+				} else {
+					currentNode = currentNode.Next
+				}
+			}
+	   }
+ }
+
+ func (s *SinglyLinkedList) deleteOdd() {
+
+	subOperations()
+	currentNode := s.head 
+
+	   if subOperations() {
+			 for currentNode != nil {
+
+				if currentNode.Data%2 != 0 {
+					s.delete(currentNode.Data)
+					currentNode = currentNode.Next
+				}
+				currentNode = currentNode.Next
+			 }
+	   } else {
+			for currentNode != nil {
+				if currentNode.Data%2 != 0 {
+					s.delete(currentNode.Data)
+					break
+				} else {
+					currentNode = currentNode.Next
+				}
+			}
+	   }
  }
 
 
 
 func duplicateDeletetion() {
+	
    s := SinglyLinkedList{}
-	var choice,choice2 string
+	var choice string
 	var data int
-    operations()
-	fmt.Scan(&choice)
+    fmt.Scan(&choice)
     
 	switch choice {
 	case "D":
 		fmt.Println("Enter the data : ")
 		fmt.Scan(&data)
+		s.deleteDupOf(data)
 	case "E":
-		subOperations() 
-		fmt.Scan(&choice2)
+		s.deleteEven()
+
 	case "O":
-		subOperations() 
-		fmt.Scan(&choice2)
+		s.deleteOdd()
 	case "A":
 		s.deleteAllDuplicate()
-
 }
 
 
 }
 
-func deleteDuplicate(data int) {
+func ListOperations() {
 
  s := SinglyLinkedList{}
 
- var choice1,choice2,choice3 int
+ var choice int
 
-
-
- for choice1 !=5 {
-       
+for {
 	operations()
-	fmt.Scan(&choice1)
+	fmt.Scan(&choice)
 
-	switch choice1 {
-	case 1:
-		s.addNode()
+	switch choice {
+		
+		case 1:
+		 	s.addNode()
+            break
+		case 2:
+		 	var data int
+			fmt.Print("Enter the data to delete :")
+			fmt.Scan(&data)
+			s.delete(data)
+			break
+		case 3:
+		 	s.display()
+			break
+		case 4:
+		 	moreOperation()
+			break
+		case 5:
+         break   
+	}
 
-	case 2:
-		var data int
-		fmt.Print("Enter the data to delete :")
-		fmt.Scan(&data)
-		s.delete(data)
-
-	case 3:
-		s.display()
-	case 4:
-		moreOperation()
-	case 5:
+	if choice == 5 {
 		break
 	}
      
 
  }
 
-
-
 }
+
+
+func main () {
+   ListOperations()
+}
+
+
+
