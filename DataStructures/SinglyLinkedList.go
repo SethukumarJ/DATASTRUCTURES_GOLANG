@@ -27,17 +27,28 @@ func (list *SinglyLinkedList) addNode(data int) {
 	list.tail = newNode
 
 }
-
 func (list *SinglyLinkedList) delete(data int){
-   temp := list.head
 
-   for {
-	if(temp.Next.Data ==data){
-		temp.Next = temp.Next.Next
-		break
+	if (list.head != nil && list.head.Data == data) {
+		list.head = list.head.Next;
+		return
 	}
-	temp= temp.Next
-   }
+	temp := list.head
+	for (temp != nil) {
+		if (temp.Next.Data == data) {
+			if (temp.Next == list.tail) {
+				list.tail = temp;
+				list.tail.Next = nil;
+			} else {
+				temp.Next = temp.Next.Next;
+
+			return
+			}
+		}
+
+		temp = temp.Next;
+	}
+  
 }
 
 func (list *SinglyLinkedList) display() {
