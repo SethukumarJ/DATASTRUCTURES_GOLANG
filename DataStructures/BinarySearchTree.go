@@ -160,49 +160,63 @@ func (tree *BinarySearchTree) remove () {
 
 
 
+	func getMax(key *Node) int {
+        prev := key
+        temp := key.left
+        for temp.right != nil {
+            prev = temp
+            temp = temp.right
+        }
+        if prev == key {
+            prev.left = temp.left
+        } else {
+            prev.right = temp.left
+        }
+        return temp.Data
+    }
 
-func getMax(temp *Node) int {
+	func getMin(key *Node) int {
+        prev := key
+        temp := key.right
+        for temp.left != nil {
+            prev = temp
+            temp = temp.left
+        }
+        if prev == key {
+            prev.right = temp.right
+        } else {
+            prev.left = temp.right
+        }
+        return temp.Data
+    }
 
-	q := temp
-	temp = temp.left
 
-	for temp != nil {
 
-		q = temp
-		temp = temp.right
+    func (tree *BinarySearchTree) sumOfTree() {
+        
+		
+		sum := tree.sumHelper(tree.root)
+		fmt.Println("The sum is : ",sum)
+		
+	}
 
-	} 
+	var sum int
+
+	func (tree *BinarySearchTree) sumHelper(temp *Node) int {
 	
-	if temp.left != nil {
+		if temp != nil {
+			
+			tree.sumHelper(temp.left)
+			sum += temp.Data
+			tree.sumHelper(temp.right)
 
-		q.right = temp.left
+		}
+
+		return sum
 
 	}
 
-	return temp.Data
 
-}
-
-func getMin(temp *Node) int {
-
-	q := temp
-	temp = temp.right
-
-	for temp != nil {
-
-		q = temp
-		temp = temp.left
-
-	} 
-	
-	if temp.left != nil {
-
-		q.left = temp.right
-
-	} 
-	return temp.Data
-
-}
 
 
 func (tree *BinarySearchTree) inOrder () {
@@ -280,7 +294,9 @@ func main () {
 	tree.addNode()
 	tree.inOrder()
 	tree.postOrder()
+	tree.remove()
 	tree.preOrder()
+	tree.sumOfTree()
 
 }
 
