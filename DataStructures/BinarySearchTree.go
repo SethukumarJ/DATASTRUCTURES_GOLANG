@@ -1,8 +1,10 @@
 package main
 
+
 import (
 	"fmt"
 )
+
 
 type Node struct {
 
@@ -13,11 +15,13 @@ type Node struct {
 
 }
 
+
 type BinarySearchTree struct {
 	
 	root *Node
 
 }
+
 
 func (tree *BinarySearchTree) addNode () {
 
@@ -68,3 +72,42 @@ func (tree *BinarySearchTree) addNode () {
 	}
 
 }
+
+
+func (tree *BinarySearchTree) contain() {
+
+	var data int
+	temp := tree.root
+
+	fmt.Print("\nEnter the data to check whether the tree contains or not : ")
+	fmt.Scan(&data)
+
+	if temp == nil {
+
+		fmt.Println("Tree is empty!...")
+		return
+	}
+
+	for temp != nil  {
+
+		if data < temp.Data {
+
+			temp = temp.left
+
+		} else if data > temp.Data {
+
+			temp = temp.right
+
+		} else {
+
+			fmt.Println("Match found!")
+			return
+
+		}
+	}
+
+	fmt.Println("No match found!")
+	
+}
+
+
