@@ -98,6 +98,7 @@ func (list *SinglyLinkedList) insert(data int, search string, counts int) {
 	}
 }
 
+
 func (list *SinglyLinkedList) paliondromeCheck() {
 
 	var data string
@@ -106,8 +107,6 @@ func (list *SinglyLinkedList) paliondromeCheck() {
 	length := len(data)
 	var name string
 	count := 1
-	
-	
 	
 	for i := 0; i < length; i++ {
 
@@ -122,25 +121,26 @@ func (list *SinglyLinkedList) paliondromeCheck() {
 		if count == length {
 
 			name += temp.Data
-			
 			temp = list.head
 			count = 1
 			length--
+
 		} else {
 
 		temp = temp.Next
 		 count++
 
 		}
-		
-		
-		
 	}
 
    if name == data {
+
 	fmt.Println("paliondrome!")
+
    } else {
+
 	fmt.Println("not paliondrome!")
+
    }
 
 }
