@@ -66,6 +66,41 @@ func (list *SinglyLinkedList) display() {
 
 }
 
+func (list *SinglyLinkedList) insert (data int,search int, counts int) {
+    newNode := new(Node)
+	newNode.Data = data
+	temp := list.head
+	
+	count := 0
+
+	
+	if search == list.head.Data {
+		
+		newNode.Next = temp 
+		list.head = newNode
+	    return
+	}
+
+	
+	for temp.Next != nil {
+
+		if temp.Next.Data== search {
+
+			count++
+
+			if count == counts {
+				newNode.Next = temp.Next
+				temp.Next = newNode
+				return
+			}
+
+		
+		}
+		temp = temp.Next
+
+	}
+}
+
 func main() {
 
 	list := SinglyLinkedList{}
