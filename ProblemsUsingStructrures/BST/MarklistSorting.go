@@ -85,7 +85,7 @@ func (tree *ProgressCard) deletehelper(temp *Node,name string) {
 
 		if temp.name == name {
 
-			tree.delete(temp.mark)
+			tree.remove(temp.mark)
 			return
 
 		} 
@@ -98,14 +98,10 @@ func (tree *ProgressCard) deletehelper(temp *Node,name string) {
 
 }
 
-func (tree *BinarySearchTree) remove () {
+func (tree *ProgressCard) remove (mark int) {
 
-	var data int
+	
 	temp := tree.root
-
-	fmt.Print("\nEnter the data to remove : ")
-	fmt.Scan(&data)
-
 	if temp == nil {
 
 		fmt.Println("Tree is empty !...")
@@ -115,27 +111,27 @@ func (tree *BinarySearchTree) remove () {
 
 	for temp != nil {
 
-		if data < temp.Data {
+		if mark > temp.mark {
 
-			temp = temp.left
+			temp = temp.lchild
 
-		} else if data > temp.Data {
+		} else if mark < temp.mark {
 
-			temp = temp.right
+			temp = temp.rchild
 
 		} else {
 
-				if temp.right!=nil {
+				if temp.rchild!=nil {
 
-                	temp.Data = getMin(temp)
+                	temp.mark = getMin(temp)
 
-				} else if temp.left!=nil {
+				} else if temp.lchild!=nil {
 
-                	temp.Data = getMax(temp)
+                	temp.mark = getMax(temp)
 
 				} else {
 
-                	temp.Data = getMin(temp)
+                	temp.mark = getMin(temp)
                 	fmt.Println("Data deleted succesfully")
                 	return
 
@@ -177,21 +173,21 @@ func (tree *BinarySearchTree) remove () {
         return temp.mark
     }
 
-func (tree *ProgressCard) inOrder () {
+func (tree *ProgressCard) display () {
 
 	fmt.Println("=======RANK LIST========")
-	tree.inOrderHelper(tree.root)
+	tree.displayHelper(tree.root)
 	
 }
 
 
-func (tree *ProgressCard) inOrderHelper (temp *Node) {
+func (tree *ProgressCard) displayHelper (temp *Node) {
 
 	if temp != nil  {
 
-		tree.inOrderHelper(temp.lchild)
+		tree.displayHelper(temp.lchild)
 		fmt.Println(temp.name, " - ",temp.mark)
-		tree.inOrderHelper(temp.rchild)
+		tree.displayHelper(temp.rchild)
 	}
 
 }
@@ -204,17 +200,26 @@ func (tree *ProgressCard) inOrderHelper (temp *Node) {
 func main () {
 
 	count :=1
+	
 	tree := ProgressCard{}
 
-	for count == 1 {
-            
-		tree.addNode()
-
-		fmt.Println("Enter 1 to continue")
+	for count != 4 {
+		fmt.Println("\nadd --> 1 \nremove --> 2 \ndisplay --> 3 \nexit -->4")
 		fmt.Scan(&count)
-    
+
+		switch count {
+
+		case 1:
+			tree.addNode()
+		case 2:
+			tree.delete()
+		case 3:
+			tree.display()
+		case 4:
+			count = 4
+		}
+            
+		
 	}
 
-	tree.inOrder()
-	return
 }
