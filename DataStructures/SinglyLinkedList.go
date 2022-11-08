@@ -105,6 +105,6 @@ func main() {
 
 	list := SinglyLinkedList{}
 	
-	for
+	
 
 }
