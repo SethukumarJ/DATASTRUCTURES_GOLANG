@@ -35,7 +35,7 @@ func (list *SinglyLinkedList) delete(data int){
 
 	if (list.head != nil && list.head.Data == data) {
 		list.head = list.head.Next;
-		return
+		
 	}
 	temp := list.head
 	for (temp != nil) {
@@ -64,7 +64,7 @@ func (list *SinglyLinkedList) display() {
 	temp = list.head
 
 	for temp !=nil {
-		fmt.Println(temp.Data)
+		fmt.Print(temp.Data," ")
 		temp = temp.Next
 	}
 

@@ -145,10 +145,51 @@ func (list *SinglyLinkedList) paliondromeCheck() {
 
 }
 
+
+func (list *SinglyLinkedList) stringreverse() {
+
+	var data string
+	fmt.Print("Enter the string : ")
+	fmt.Scan(&data)
+	length := len(data)
+	
+	count := 1
+	
+	for i := 0; i < length; i++ {
+
+		list.addNode(string(data[i]))
+
+	}
+
+	temp := list.head
+
+	for count <= length{
+
+		if count == length {
+
+			fmt.Print(temp.Data)
+			temp = list.head
+			count = 1
+			length--
+
+		} else {
+
+		temp = temp.Next
+		 count++
+
+		}
+	}
+
+
+
+}
+
 func main() {
 
 	list := SinglyLinkedList{}
 
-	list.paliondromeCheck()
+	// list.paliondromeCheck()
+
+	list.stringreverse()
 
 }
