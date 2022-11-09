@@ -158,10 +158,76 @@ func (tree *BinarySearchTree) remove () {
 
 	}
 
+	func getMax(key *Node) int {
+        prev := key
+        temp := key.left
+        for temp.right != nil {
+            prev = temp
+            temp = temp.right
+        }
+        if prev == key {
+            prev.left = temp.left
+        } else {
+            prev.right = temp.left
+        }
+        return temp.Data
+    }
+
+	func getMin(key *Node) int {
+        prev := key
+        temp := key.right
+        for temp.left != nil {
+            prev = temp
+            temp = temp.left
+        }
+        if prev == key {
+            prev.right = temp.right
+        } else {
+            prev.left = temp.right
+        }
+        return temp.Data
+    }
+
+
+
 
 
 	func (tree *BinarySearchTree) findNearest() {
 
+		var data,minValue int
+		minValue = 1000
 		fmt.Print("Enter the data to search for the nearest : ") 
 		fmt.Scan(&data)
+		var nearest int
+		tree.findNearestHelper(tree.root,data,minValue,&nearest)
+	}
+
+
+	func (tree *BinarySearchTree) findNearestHelper(temp *Node,data int,minValue int,nearest *int) int{
+
+		
+		if temp != nil {
+
+			tree.findNearestHelper(temp.left,data,minValue,nearest)
+
+			diff := temp.Data - data 
+			if diff < 0 {
+
+				diff = diff * -1
+			}
+
+			if diff < minValue {
+
+				minValue = diff
+				*nearest = temp.Data
+			
+			}
+
+			tree.findNearestHelper(temp.right,data,minValue,nearest)
+
+		}
+
+		return *nearest
+		
+
 	}
