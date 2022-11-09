@@ -26,6 +26,7 @@ func (tree *Tree) addNode () {
         fmt.Print("Enter the data to add to head : ")
         fmt.Scan(&data)
         newNode.Data = data
+        return
         
     } else {
 
@@ -60,7 +61,10 @@ func (tree *Tree) addHelper(temp *Node,choice int,data int, parentData int) {
     if temp != nil  {
 
         tree.addHelper(temp.lchild,choice,data,parentData)
-        
+
+
+
+
     }
 
     
