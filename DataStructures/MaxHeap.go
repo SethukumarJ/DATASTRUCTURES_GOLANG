@@ -6,7 +6,7 @@ import (
 
 )
 
-type MinHeap struct {
+type MaxHeap struct {
 
 	 arr [100]int
 
@@ -15,7 +15,7 @@ type MinHeap struct {
 var size int = -1
 
 
-func(h *MinHeap) insert(data int) {
+func(h *MaxHeap) insert(data int) {
 
 	h.arr[size+1] = data
 	size++
@@ -24,9 +24,9 @@ func(h *MinHeap) insert(data int) {
 }
 
 
-func (h *MinHeap) insertHelper(position int) {
+func (h *MaxHeap) insertHelper(position int) {
 
-	if h.arr[position] < h.arr[(position-1)/2] {
+	if h.arr[position] > h.arr[(position-1)/2] {
 
 		swap := h.arr[position]
 		h.arr[(position-1)/2] = h.arr[position]
@@ -37,7 +37,7 @@ func (h *MinHeap) insertHelper(position int) {
 
 }
 
-func (h *MinHeap) rootDelete() {
+func (h *MaxHeap) rootDelete() {
 
 	   h.arr[0] = h.arr[size]
        size--
@@ -49,23 +49,23 @@ func (h *MinHeap) rootDelete() {
 
 
 
-func (h *MinHeap) rootDeleteHelper(position int) {
+func (h *MaxHeap) rootDeleteHelper(position int) {
 
 	var swap int
-        if h.arr[position] > h.minValue(position) {
+        if h.arr[position] < h.maxValue(position) {
             swap =h.arr[position];
-            h.arr[position] = h.arr[h.minValue(position)];
-            h.arr[h.minValue(position)] = swap;
-            h.rootDeleteHelper(h.minValue(position));
+            h.arr[position] = h.arr[h.maxValue(position)];
+            h.arr[h.maxValue(position)] = swap;
+            h.rootDeleteHelper(h.maxValue(position));
 
         }
 
 
 }
 
-func (h *MinHeap) minValue(position int) int{
+func (h *MaxHeap) maxValue(position int) int{
        
-	if(h.arr[2*position+1] > h.arr[2*position+2]){
+	if(h.arr[2*position+1] < h.arr[2*position+2]){
 
 		return 2*position+2;
 
@@ -76,7 +76,7 @@ func (h *MinHeap) minValue(position int) int{
 	}
 }
 
-func (h  *MinHeap) display() {
+func (h  *MaxHeap) display() {
 
 	for i:= 0; i< size; i++ {
 
