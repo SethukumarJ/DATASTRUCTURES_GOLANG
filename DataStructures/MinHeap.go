@@ -46,9 +46,6 @@ func (h *MinHeap) rootDelete() {
     }
    
  
-
-
-
 func (h *MinHeap) rootDeleteHelper(position int) {
 
 	var swap int
