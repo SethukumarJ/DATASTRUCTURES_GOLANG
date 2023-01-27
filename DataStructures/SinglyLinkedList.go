@@ -27,6 +27,22 @@ func (list *SinglyLinkedList) addNode(data int) {
 	list.tail = newNode
 
 }
+
+func (list *SinglyLinkedList) addNodeBeggining(data int) {
+	newNode := new(Node)
+	newNode.Data = data
+	newNode.Next = nil
+
+	if list.head == nil {
+		list.head = newNode
+
+	}  else {
+		newNode.Next = list.head
+	}
+
+	list.head = newNode
+
+}
 func (list *SinglyLinkedList) delete(data int){
 
 	if (list.head != nil && list.head.Data == data) {
@@ -66,7 +82,7 @@ func (list *SinglyLinkedList) display() {
 
 }
 
-func (list *SinglyLinkedList) insert (data int,search int, counts int) {
+func (list *SinglyLinkedList) insert(data int,search int, counts int) {
     newNode := new(Node)
 	newNode.Data = data
 	temp := list.head
@@ -104,7 +120,6 @@ func (list *SinglyLinkedList) insert (data int,search int, counts int) {
 func main() {
 
 	list := SinglyLinkedList{}
+	fmt.Println(list)
 	
-	
-
 }
