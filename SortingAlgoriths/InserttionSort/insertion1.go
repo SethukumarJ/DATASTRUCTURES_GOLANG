@@ -12,7 +12,7 @@ func Sorting (input []int) []int{
 
 	for j := i-1; j >=0; j-- {
 
-		if input[j]>input[current] {
+		if input[j]>=input[current] {
 
 			temp := input[j]
 			input[j] = input[current]
