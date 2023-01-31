@@ -1,84 +1,42 @@
+package main
 
-import java.util.*;
-public class Graph {
-    private Map<Integer,List<Integer>> map = new  HashMap<>();
-    
-    private void addVertex(Integer vertex) {
-        map.put(vertex, new ArrayList<>());
-    }
+import "fmt"
 
-    public void insert(Integer vertex, Integer edge, boolean bidirectional){
-        if(!map.containsKey(vertex)){
-            addVertex(vertex);
-
-        }
-        if(!map.containsKey(edge)){
-            addVertex(edge);
-        }
-        map.get(vertex).add(edge);
-        if(bidirectional){
-            map.get(edge).add(vertex);
-        }
-    }
-
-    public void display() {
-    
-        for(Integer x : map.keySet()){
-            System.out.print(x+": ");
-            for(Integer y: map.get(x)){
-                System.out.print(y+" ");
-            }
-            System.out.println();
-        }
-    }
-    public static void main(String[] args) {
-        Graph graph = new Graph();
-        graph.insert(3, 5, true);
-        graph.insert(3, 4, true);
-        graph.insert(5, 6, false);
-        graph.display();
-    }
-    
+type Graph struct {
+	Map map[int][]int
 }
 
-import java.util.*;
-public class Graph {
-    private Map<Integer,List<Integer>> map = new  HashMap<>();
-    
-    private void addVertex(Integer vertex) {
-        map.put(vertex, new ArrayList<>());
-    }
+func (g *Graph) AddVertex(vertex int) {
+	g.Map[vertex] = []int{}
+}
 
-    public void insert(Integer vertex, Integer edge, boolean bidirectional){
-        if(!map.containsKey(vertex)){
-            addVertex(vertex);
+func (g *Graph) insert(vertex int, edge int, bidirectional bool) {
+	_, exists := g.Map[vertex]
+	_, exists2 := g.Map[edge]
+	if !exists {
+		g.AddVertex(vertex)
+	}
+	if !exists2 {
+		g.AddVertex(edge)
+	}
+	g.Map[vertex] = append(g.Map[vertex], edge)
+	if bidirectional {
+		g.Map[edge] = append(g.Map[edge], vertex)
+	}
+}
 
-        }
-        if(!map.containsKey(edge)){
-            addVertex(edge);
-        }
-        map.get(vertex).add(edge);
-        if(bidirectional){
-            map.get(edge).add(vertex);
-        }
-    }
+func (g *Graph) display() {
 
-    public void display() {
-    
-        for(Integer x : map.keySet()){
-            System.out.print(x+": ");
-            for(Integer y: map.get(x)){
-                System.out.print(y+" ");
-            }
-            System.out.println();
-        }
-    }
-    public static void main(String[] args) {
-        Graph graph = new Graph();
-        graph.insert(3, 5, true);
-        graph.insert(3, 4, true);
-        graph.insert(5, 6, false);
-        graph.display();
-    }
-    
+	fmt.Println(g.Map)
+}
+
+func main() {
+	g := &Graph{Map: make(map[int][]int)}
+
+	g.insert(3, 5, true)
+	g.insert(3, 4, true)
+	g.insert(5, 6, false)
+
+	g.display()
+	// Output: map[1:[2 2] 2:[1 3] 3:[2 4]]
 }
