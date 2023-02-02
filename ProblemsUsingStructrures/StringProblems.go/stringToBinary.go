@@ -8,6 +8,6 @@ func main() {
 
 	for i := 0; i < len(word); i++ {
 
-		fmt.Printf("%08b ", byte(word[i]))
+		fmt.Printf("%08s ", string(byte(word[i])))
 	}
 }

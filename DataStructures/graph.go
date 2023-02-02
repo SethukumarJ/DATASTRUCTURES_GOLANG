@@ -38,5 +38,5 @@ func main() {
 	g.insert(5, 6, false)
 
 	g.display()
-	// Output: map[1:[2 2] 2:[1 3] 3:[2 4]]
+	
 }
