@@ -1,29 +1,22 @@
 package main
 
-
 import (
 	"fmt"
+	"math"
 )
 
-
 type Node struct {
-
-	Data int
-	right *Node
-	left *Node
+	Data   int
+	right  *Node
+	left   *Node
 	parent *Node
-
 }
-
 
 type BinarySearchTree struct {
-	
 	root *Node
-
 }
 
-
-func (tree *BinarySearchTree) addNode () {
+func (tree *BinarySearchTree) addNode() {
 
 	var data int
 	newNode := new(Node)
@@ -33,8 +26,8 @@ func (tree *BinarySearchTree) addNode () {
 
 	newNode.Data = data
 
-	if (tree.root == nil) {
-		
+	if tree.root == nil {
+
 		tree.root = newNode
 		return
 
@@ -73,7 +66,6 @@ func (tree *BinarySearchTree) addNode () {
 
 }
 
-
 func (tree *BinarySearchTree) contain() {
 
 	var data int
@@ -88,7 +80,7 @@ func (tree *BinarySearchTree) contain() {
 		return
 	}
 
-	for temp != nil  {
+	for temp != nil {
 
 		if data < temp.Data {
 
@@ -110,181 +102,191 @@ func (tree *BinarySearchTree) contain() {
 
 }
 
-
-func (tree *BinarySearchTree) remove () {
-
-	var data int
+func (tree *BinarySearchTree) delete(data int) {
 	temp := tree.root
-
-	fmt.Print("\nEnter the data to remove : ")
-	fmt.Scan(&data)
+	prev := temp
 
 	if temp == nil {
-
-		fmt.Println("Tree is empty !...")
+		fmt.Println("Tree is empty!")
 		return
-
 	}
 
 	for temp != nil {
 
 		if data < temp.Data {
-
+			prev = temp
 			temp = temp.left
-
 		} else if data > temp.Data {
-
+			prev = temp
 			temp = temp.right
-
 		} else {
-
-				if temp.right!=nil {
-
-                	temp.Data = getMin(temp)
-
-				} else if temp.left!=nil {
-
-                	temp.Data = getMax(temp)
-
+			if temp.right != nil {
+				temp.Data = getMin(temp)
+			} else if temp.left != nil {
+				temp.Data = getMax(temp)
+			} else {
+				if temp.Data < prev.Data {
+					prev.left = nil
 				} else {
-
-                	temp.Data = getMin(temp)
-                	fmt.Println("Data deleted succesfully")
-                	return
-
+					prev.right = nil
 				}
 			}
+
+			fmt.Println("deleted!")
+			return
 		}
 
+		fmt.Println("data not found!")
+	}
+}
+
+// func replace(temp *Node, prev *Node) {
+
+// }
+
+func getMax(key *Node) int {
+	prev := key
+	temp := key.left
+	for temp.right != nil {
+		prev = temp
+		temp = temp.right
+	}
+	if prev == key {
+		prev.left = temp.left
+	} else {
+		prev.right = temp.left
+	}
+	return temp.Data
+}
+
+func getMin(key *Node) int {
+	prev := key
+	temp := key.right
+	for temp.left != nil {
+		prev = temp
+		temp = temp.left
+	}
+	if prev == key {
+		prev.right = temp.right
+	} else {
+		prev.left = temp.right
+	}
+	return temp.Data
+}
+
+func (tree *BinarySearchTree) sumOfTree() {
+
+	sum := tree.sumHelper(tree.root)
+	fmt.Println("The sum is : ", sum)
+
+}
+
+var sum int
+
+func (tree *BinarySearchTree) sumHelper(temp *Node) int {
+
+	if temp != nil {
+
+		tree.sumHelper(temp.left)
+		sum += temp.Data
+		tree.sumHelper(temp.right)
+
 	}
 
+	return sum
 
+}
 
-	func getMax(key *Node) int {
-        prev := key
-        temp := key.left
-        for temp.right != nil {
-            prev = temp
-            temp = temp.right
-        }
-        if prev == key {
-            prev.left = temp.left
-        } else {
-            prev.right = temp.left
-        }
-        return temp.Data
-    }
+func (tree *BinarySearchTree) FindNearest(data int) {
 
-	func getMin(key *Node) int {
-        prev := key
-        temp := key.right
-        for temp.left != nil {
-            prev = temp
-            temp = temp.left
-        }
-        if prev == key {
-            prev.right = temp.right
-        } else {
-            prev.left = temp.right
-        }
-        return temp.Data
-    }
+	near := tree.FindNearestHelper(tree.root, data)
+	fmt.Println("The nearest data is : ", near)
 
+}
 
+var near int
+var diff int
 
-    func (tree *BinarySearchTree) sumOfTree() {
-        
-		
-		sum := tree.sumHelper(tree.root)
-		fmt.Println("The sum is : ",sum)
-		
+func (tree *BinarySearchTree) FindNearestHelper(temp *Node, data int) int {
+
+	if temp == tree.root {
+		diff = int(math.Abs(float64(temp.Data - data)))
+
+		near = temp.Data
 	}
+	if temp != nil {
 
-	var sum int
-
-	func (tree *BinarySearchTree) sumHelper(temp *Node) int {
-	
-		if temp != nil {
-			
-			tree.sumHelper(temp.left)
-			sum += temp.Data
-			tree.sumHelper(temp.right)
-
+		tree.FindNearestHelper(temp.left, data)
+		if int(math.Abs(float64(temp.Data-data))) <= diff {
+			diff = int(math.Abs(float64(temp.Data - data)))
+			near = temp.Data
 		}
-
-		return sum
+		tree.FindNearestHelper(temp.right, data)
 
 	}
 
+	return near
 
+}
 
-
-func (tree *BinarySearchTree) inOrder () {
+func (tree *BinarySearchTree) inOrder() {
 
 	fmt.Print("Inorder : ")
 	tree.inOrderHelper(tree.root)
-	
+
 }
 
+func (tree *BinarySearchTree) inOrderHelper(temp *Node) {
 
-func (tree *BinarySearchTree) inOrderHelper (temp *Node) {
-
-	if temp != nil  {
+	if temp != nil {
 
 		tree.inOrderHelper(temp.left)
-		fmt.Print(temp.Data," ")
+		fmt.Print(temp.Data, " ")
 		tree.inOrderHelper(temp.right)
 	}
 
 }
 
-
-func (tree *BinarySearchTree) preOrder () {
+func (tree *BinarySearchTree) preOrder() {
 
 	fmt.Print("PreOrder : ")
 	tree.preOrderHelper(tree.root)
-	
+
 }
 
+func (tree *BinarySearchTree) preOrderHelper(temp *Node) {
 
-func (tree *BinarySearchTree) preOrderHelper (temp *Node) {
+	if temp != nil {
 
-	if temp != nil  {
-
-		fmt.Print(temp.Data," ")
+		fmt.Print(temp.Data, " ")
 		tree.preOrderHelper(temp.left)
 		tree.preOrderHelper(temp.right)
 	}
 
 }
 
-
-func (tree *BinarySearchTree) postOrder () {
+func (tree *BinarySearchTree) postOrder() {
 
 	fmt.Print("PostOrder : ")
 	tree.postOrderHelper(tree.root)
-	
+
 }
 
+func (tree *BinarySearchTree) postOrderHelper(temp *Node) {
 
-func (tree *BinarySearchTree) postOrderHelper (temp *Node) {
+	if temp != nil {
 
-	if temp != nil  {
-
-		
 		tree.postOrderHelper(temp.left)
 		tree.postOrderHelper(temp.right)
-		fmt.Print(temp.Data," ")
+		fmt.Print(temp.Data, " ")
 
 	}
 
 }
 
+func main() {
 
-
-func main () {
-
-    tree := BinarySearchTree{}
+	tree := BinarySearchTree{}
 
 	tree.addNode()
 	tree.addNode()
@@ -293,11 +295,13 @@ func main () {
 	tree.addNode()
 	tree.addNode()
 	tree.inOrder()
-	tree.postOrder()
-	tree.remove()
-	tree.preOrder()
-	tree.sumOfTree()
+
+	tree.inOrder()
+	tree.FindNearest(6)
+	tree.contain()
+	fmt.Println("root:", tree.root)
+	fmt.Println("right:", tree.root.right)
+
+	fmt.Println("left:", tree.root.left)
 
 }
-
-
