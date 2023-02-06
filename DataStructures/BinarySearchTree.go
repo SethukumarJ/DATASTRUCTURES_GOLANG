@@ -16,54 +16,38 @@ type BinarySearchTree struct {
 	root *Node
 }
 
-func (tree *BinarySearchTree) addNode() {
+func (tree *BinarySearchTree) addNode(data int){
 
-	var data int
 	newNode := new(Node)
-
-	fmt.Print("\nEnter the data to add :")
-	fmt.Scan(&data)
-
 	newNode.Data = data
-
+	
 	if tree.root == nil {
-
-		tree.root = newNode
+		tree.root = newNode 
+		newNode.parent, newNode.left, newNode.right = nil, nil ,nil
 		return
-
 	}
 
 	temp := tree.root
+	for temp!= nil {
 
-	for temp != nil {
-
-		if newNode.Data < temp.Data {
+		if data < temp.Data {
 
 			if temp.left == nil {
-
 				temp.left = newNode
 				newNode.parent = temp
 				return
 			}
-
 			temp = temp.left
-
-		} else if newNode.Data > temp.Data {
+		} else {
 
 			if temp.right == nil {
-
 				temp.right = newNode
 				newNode.parent = temp
 				return
-
 			}
-
 			temp = temp.right
-
 		}
-
 	}
-
 }
 
 func (tree *BinarySearchTree) contain() {
@@ -287,21 +271,10 @@ func (tree *BinarySearchTree) postOrderHelper(temp *Node) {
 func main() {
 
 	tree := BinarySearchTree{}
-
-	tree.addNode()
-	tree.addNode()
-	tree.addNode()
-	tree.addNode()
-	tree.addNode()
-	tree.addNode()
+	tree.addNode(3)
+	tree.addNode(3)
+	tree.addNode(3)
+	tree.addNode(3)
 	tree.inOrder()
-
-	tree.inOrder()
-	tree.FindNearest(6)
-	tree.contain()
-	fmt.Println("root:", tree.root)
-	fmt.Println("right:", tree.root.right)
-
-	fmt.Println("left:", tree.root.left)
 
 }
