@@ -7,9 +7,7 @@ import (
 )
 
 type MinHeap struct {
-
 	 arr []int
-
 }
 
 func(h *MinHeap) insert(data int) {

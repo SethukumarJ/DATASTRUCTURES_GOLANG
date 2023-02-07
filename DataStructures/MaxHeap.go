@@ -67,12 +67,16 @@ func (h  *MaxHeap) display() {
 }
 
 func (h *MaxHeap) BuildHeap(array []int ) {
-
+	h.arr = array
 	for i:= parent(len(h.arr)-1); i>=0; i--{
 
 		h.shiftDown(i)
 	}
 }
+
+
+
+
 
 func (h *MaxHeap) shiftDown(currentIdx int) {
 
