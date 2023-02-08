@@ -7,6 +7,7 @@ type Graph struct {
 }
 
 func (g *Graph) AddVertex(vertex int) {
+
 	g.Map[vertex] = []int{}
 }
 
@@ -19,11 +20,55 @@ func (g *Graph) insert(vertex int, edge int, bidirectional bool) {
 	if !exists2 {
 		g.AddVertex(edge)
 	}
+
 	g.Map[vertex] = append(g.Map[vertex], edge)
-	if bidirectional {
-		g.Map[edge] = append(g.Map[edge], vertex)
+	if bidirectional{
+		g.Map[edge]= append(g.Map[edge], vertex)
 	}
 }
+func (g *Graph) BFS(start int) []int {
+	queue := []int{start}
+	visited := make(map[int]bool)
+	visited[start] = true
+	result := []int{}
+
+	for len(queue) > 0 {
+		vertex := queue[0]
+		result = append(result, vertex)
+		queue = queue[1:]
+
+		for _, v := range g.Map[vertex] {
+			if !visited[v] {
+				visited[v] = true
+				queue = append(queue, v)
+			}
+		}
+	}
+
+	return result
+}
+
+
+func (g *Graph) DFS(start int) []int {
+	visited := make(map[int]bool)
+	result := []int{}
+
+	var DFSUtil func(int)
+	DFSUtil = func(vertex int) {
+		result = append(result, vertex)
+		visited[vertex] = true
+
+		for _, v := range g.Map[vertex] {
+			if !visited[v] {
+				DFSUtil(v)
+			}
+		}
+	}
+
+	DFSUtil(start)
+	return result
+}
+
 
 func (g *Graph) display() {
 

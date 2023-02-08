@@ -73,21 +73,25 @@ func(t *MinHeap) BuildHeap(array []int) {
 }
 
 
+
 func (h *MinHeap) shiftDown(currentIdx int) {
 
 	endIdx := len(h.arr)-1
 	leftIdx := leftChild(currentIdx)
-	for leftIdx <= endIdx{
+
+	for leftIdx <= endIdx {
+
 		rightIdx := rightChild(currentIdx)
-		var idxToShift int
-		if rightIdx <= endIdx && h.arr[rightIdx] < h.arr[leftIdx]{
-			idxToShift  = rightIdx
+		var idxToShift int  
+
+		if rightIdx <= endIdx && h.arr[rightIdx] < h.arr[leftIdx] {
+			idxToShift = rightIdx
 		} else {
 			idxToShift = leftIdx
 		}
 
-		if h.arr[currentIdx] > h.arr[idxToShift] {
-			swap(h.arr,currentIdx,idxToShift)
+		if h.arr[idxToShift] < h.arr[currentIdx] {
+			swap(h.arr, idxToShift,currentIdx)
 			currentIdx = idxToShift
 			leftIdx = leftChild(currentIdx)
 		} else {
@@ -95,6 +99,8 @@ func (h *MinHeap) shiftDown(currentIdx int) {
 		}
 	}
 }
+
+
 
 
 func main () {

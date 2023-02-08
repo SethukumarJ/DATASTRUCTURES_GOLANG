@@ -50,6 +50,7 @@ func (tree *BinarySearchTree) addNode(data int){
 	}
 }
 
+
 func (tree *BinarySearchTree) contain() {
 
 	var data int
@@ -143,20 +144,25 @@ func getMax(key *Node) int {
 	return temp.Data
 }
 
-func getMin(key *Node) int {
-	prev := key
-	temp := key.right
+func getMin(node *Node) int{
+
+	prev := node 
+	temp := node.right
+	
 	for temp.left != nil {
-		prev = temp
+		
+		prev = temp 
 		temp = temp.left
 	}
-	if prev == key {
-		prev.right = temp.right
-	} else {
+
+	if temp.right == nil{
 		prev.left = temp.right
+	} else {
+		prev.right = temp.right
 	}
+
 	return temp.Data
-}
+}	
 
 func (tree *BinarySearchTree) sumOfTree() {
 

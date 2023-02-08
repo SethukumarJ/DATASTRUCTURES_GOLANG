@@ -5,56 +5,51 @@ import "fmt"
 type Trie struct {
 	root *TrieNode
 }
+
 type TrieNode struct {
-	children map[interface{}]*TrieNode
+	children map[rune]*TrieNode
 }
 
-const endSymbol = "*"
+func NewTrieNode() *TrieNode {
+	return &TrieNode{children: make(map[rune]*TrieNode)}
+}
 
-func (t *Trie) populateSuffixTrie(str string) {
-
+func (t *Trie) PopulateSuffixTrie(str string) {
 	for i := 0; i < len(str); i++ {
-		t.insertSubStringStartingAt(i, str)
+		t.InsertSubStringStartingAt(i, str)
 	}
 }
 
-func (t *Trie) insertSubStringStartingAt(index int, str string) {
-
+func (t *Trie) InsertSubStringStartingAt(index int, str string) {
 	node := t.root
 	for i := index; i < len(str); i++ {
-
-		letter := str[i]
-		_, exists := node.children[letter]
+		letter := rune(str[i])
+		child, exists := node.children[letter]
 		if !exists {
-			newNode := new(TrieNode)
-			node.children[letter] = newNode
+			child = NewTrieNode()
+			node.children[letter] = child
 		}
-		node = node.children[letter]
-
+		node = child
 	}
-	node.children[endSymbol] = nil
 }
 
-func (t *Trie) contains(str string) bool {
-
+func (t *Trie) Contains(str string) bool {
 	node := t.root
-	for i := 0; i < len(str); i++ {
-		letter := str[i]
-		_, exists := node.children[letter]
+	for _, letter := range str {
+		child, exists := node.children[letter]
 		if !exists {
 			return false
 		}
-		node = node.children[letter]
+		node = child
 	}
-
-	_, exists := node.children[endSymbol]
-	return exists
+	return true
 }
 
 func main() {
+	trie := Trie{root: NewTrieNode()}
+	trie.PopulateSuffixTrie("annan")
 
-	trie := Trie{}
-	trie.populateSuffixTrie("annan")
-
-	fmt.Println(trie.contains("hello"))
+	fmt.Println(trie.Contains("hello")) // false
+	fmt.Println(trie.Contains("ann"))   // true
 }
+
