@@ -61,10 +61,6 @@ func (tree *Tree) addHelper(temp *Node,choice int,data int, parentData int) {
     if temp != nil  {
 
         tree.addHelper(temp.lchild,choice,data,parentData)
-
-
-
-
     }
 
     

@@ -45,11 +45,34 @@ func (t *Trie) Contains(str string) bool {
 	return true
 }
 
+func (t *Trie) PrintWordsStartingWith(str string) {
+	node := t.root
+	for _, letter := range str {
+		child, exists := node.children[letter]
+		if !exists {
+			return
+		}
+		node = child
+	}
+	t.dfs(node, str)
+}
+
+func (t *Trie) dfs(node *TrieNode, word string) {
+	if len(node.children) == 0 {
+		fmt.Println(word)
+		return
+	}
+	for letter, child := range node.children {
+		t.dfs(child, word+string(letter))
+	}
+}
+
 func main() {
 	trie := Trie{root: NewTrieNode()}
 	trie.PopulateSuffixTrie("annan")
-
+	trie.InsertSubStringStartingAt(0,"and")
 	fmt.Println(trie.Contains("hello")) // false
-	fmt.Println(trie.Contains("ann"))   // true
+	fmt.Println(trie.Contains("ann")) 
+	trie.PrintWordsStartingWith("an")  // true
 }
 
