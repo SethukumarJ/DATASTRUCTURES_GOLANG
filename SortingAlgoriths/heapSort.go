@@ -2,45 +2,59 @@ package main
 
 import "fmt"
 
-func HeapSort(array []int, endIdx int) []int {
-	if endIdx < 0 {
+func HeapSort(array []int, endIdx int) []int{
+	if endIdx <= 0 {
 		return array
 	}
+	sorted := Heapify(array,endIdx)
+	swap(sorted,endIdx,0)
+	return HeapSort(sorted, endIdx-1)
 
-	array = Heapify(array, endIdx)
-	swap(array, 0, endIdx)
-	return HeapSort(array, endIdx-1)
 }
 
-func Heapify(array []int, endIdx int) []int {
-	for i := parent(endIdx); i >= 0; i-- {
-		shiftDown(i, array, endIdx)
+
+func Heapify(array []int, endIdx int) []int{
+	
+
+	for i:= parent(endIdx); i>=0; i--{
+		ShiftDown(array,endIdx,i)
+	}
+
+	return array
+}	
+
+func ShiftDown(array []int, endIdx , currentIdx int) []int{
+
+	leftIdx := leftChild(currentIdx)
+
+	for leftIdx <= endIdx {
+
+			rightIdx := rightChild(currentIdx)
+			var idxToShift int
+			if rightIdx <= endIdx && array[rightIdx]>array[leftIdx]{
+				idxToShift = rightIdx
+			} else {
+				idxToShift = leftIdx
+			}
+
+
+			if array[idxToShift] > array[currentIdx] {
+
+				swap(array,idxToShift,currentIdx)
+				currentIdx = idxToShift
+				leftIdx = leftChild(currentIdx)
+			} else {
+				return array
+			}
 	}
 
 	return array
 }
 
-func shiftDown(currentIdx int, arr []int, endIdx int) {
-	leftIdx := leftChild(currentIdx)
 
-	for leftIdx <= endIdx {
-		rightIdx := rightChild(currentIdx)
-		var idxToShift int
-		if rightIdx <= endIdx && arr[rightIdx] > arr[leftIdx] {
-			idxToShift = rightIdx
-		} else {
-			idxToShift = leftIdx
-		}
 
-		if arr[idxToShift] > arr[currentIdx] {
-			swap(arr, currentIdx, idxToShift)
-			currentIdx = idxToShift
-			leftIdx = leftChild(currentIdx)
-		} else {
-			break
-		}
-	}
-}
+
+
 
 func main() {
 	array := []int{5, 6, 3, 6, 3, 2, 17}

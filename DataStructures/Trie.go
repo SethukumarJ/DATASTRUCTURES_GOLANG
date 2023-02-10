@@ -21,18 +21,22 @@ func (t *Trie) PopulateSuffixTrie(str string) {
 }
 
 func (t *Trie) InsertSubStringStartingAt(index int, str string) {
+
 	node := t.root
-	for i := index; i < len(str); i++ {
+
+	for i:= index; i<len(str); i++{
 		letter := rune(str[i])
 		child, exists := node.children[letter]
+
+
 		if !exists {
-			child = NewTrieNode()
-			node.children[letter] = child
+			child =  NewTrieNode()
+			node.children[letter]  = child
 		}
 		node = child
-	}
+	}	
+		
 }
-
 func (t *Trie) Contains(str string) bool {
 	node := t.root
 	for _, letter := range str {
@@ -42,7 +46,11 @@ func (t *Trie) Contains(str string) bool {
 		}
 		node = child
 	}
-	return true
+
+	if node == nil{
+		return true
+	}
+	return false
 }
 
 func (t *Trie) PrintWordsStartingWith(str string) {

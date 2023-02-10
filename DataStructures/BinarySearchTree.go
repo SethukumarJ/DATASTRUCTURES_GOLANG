@@ -145,22 +145,21 @@ func getMax(key *Node) int {
 }
 
 func getMin(node *Node) int{
-
 	prev := node 
 	temp := node.right
-	
+
+
 	for temp.left != nil {
-		
-		prev = temp 
+
+		prev = temp
 		temp = temp.left
 	}
 
-	if temp.right == nil{
-		prev.left = temp.right
+	if prev == node {
+		prev .right = temp.right
 	} else {
-		prev.right = temp.right
+		prev.left = temp.right
 	}
-
 	return temp.Data
 }	
 
@@ -185,6 +184,27 @@ func (tree *BinarySearchTree) sumHelper(temp *Node) int {
 
 	return sum
 
+}
+
+
+
+
+func CheckSubTree(tree *BinarySearchTree) bool{
+
+	if tree.root == nil {
+		fmt.Println("Tree is empty!")
+		return false
+	}
+
+
+	if tree.root.parent != nil {
+		fmt.Println("It is a subset of a binarySearch tree.")
+		return true
+	} else if tree.root.parent == nil{
+		fmt.Println("it is not a subset of bst")
+		return false
+	}
+	return true
 }
 
 func (tree *BinarySearchTree) FindNearest(data int) {
@@ -237,6 +257,8 @@ func (tree *BinarySearchTree) inOrderHelper(temp *Node) {
 
 }
 
+
+
 func (tree *BinarySearchTree) preOrder() {
 
 	fmt.Print("PreOrder : ")
@@ -274,13 +296,38 @@ func (tree *BinarySearchTree) postOrderHelper(temp *Node) {
 
 }
 
-func main() {
 
+
+
+func (tree *BinarySearchTree) addTree(tree1 *BinarySearchTree) {
+
+	temp := tree.root
+
+	for temp.left != nil {
+		temp = temp.left
+	}
+
+	if temp.left == nil {
+		temp.left = tree1.root
+	}
+}
+
+func main() {
+	
+	tree2 := BinarySearchTree{}
+	
+	tree2.addNode(7)
+	tree2.addNode(3)
+	tree2.addNode(9)
+	tree2.addNode(4)
+	tree2.addNode(1)
+	CheckSubTree(&tree2)
 	tree := BinarySearchTree{}
 	tree.addNode(3)
-	tree.addNode(3)
-	tree.addNode(3)
-	tree.addNode(3)
+	tree.addNode(7)
+	tree.addNode(1)
+	tree.addNode(2)
+	tree.addTree(&tree2)
 	tree.inOrder()
 
 }

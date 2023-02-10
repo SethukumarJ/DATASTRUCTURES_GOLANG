@@ -10,17 +10,16 @@ type MinHeap struct {
 	 arr []int
 }
 
-func(h *MinHeap) insert(data int) {
+func (h *MinHeap) insert(data int) {
 
 	h.arr = append(h.arr, data)
 	h.insertHelper(len(h.arr)-1)
 
 }
 
-
 func (h *MinHeap) insertHelper(position int) {
 
-	if h.arr[position] < h.arr[(position-1)/2] {
+	if h.arr[position] < h.arr[(position-1)/2]{
 		swap(h.arr,position,(position-1)/2)
 		h.insertHelper((position-1)/2)
 	}
