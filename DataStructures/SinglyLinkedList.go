@@ -20,7 +20,7 @@ func (list *SinglyLinkedList) addNode(data int) {
 	if list.head == nil {
 		list.head = newNode
 
-	}  else {
+	}  else {	
 		list.tail.Next = newNode
 	}
 
